@@ -50,6 +50,8 @@ export default function optimisticActionMiddleware({ dispatch }) {
         }
       );
       transactionID++;
+    } else {
+      next(action);
     }
   };
 }
