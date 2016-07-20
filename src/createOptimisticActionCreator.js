@@ -1,7 +1,7 @@
-export default (type, actionCreator) => (...args) =>
+export default (type, actionCreator) => (args) =>
   ({
     type,
-    payload: { ...args },
+    payload: args,
     meta: {
       optimistic: true,
       promise: actionCreator(...args)

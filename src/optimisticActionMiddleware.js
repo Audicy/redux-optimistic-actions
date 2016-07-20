@@ -26,9 +26,9 @@ export default function optimisticActionMiddleware({ dispatch }) {
       // Dispatch success or failure when promise
       // is resolved
       action.meta.promise.then(
-        (result) => dispatch({
+        () => dispatch({
           type: action.type,
-          payload: result,
+          payload: action.payload,
           meta: {
             ...action.meta,
             transactionID: thisTransaction,
