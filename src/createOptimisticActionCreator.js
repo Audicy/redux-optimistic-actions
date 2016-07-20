@@ -4,6 +4,6 @@ export default (type, actionCreator) => (args) =>
     payload: args,
     meta: {
       optimistic: true,
-      promise: actionCreator(...args)
+      promise: actionCreator(args)
     }
   });
