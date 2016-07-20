@@ -1,4 +1,4 @@
-import isActionOptimistic from 'isActionOptimistic';
+import isActionOptimistic from './isActionOptimistic';
 
 let transactionID = 0;
 
