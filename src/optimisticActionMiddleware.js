@@ -9,45 +9,47 @@ export default function optimisticActionMiddleware({ dispatch }) {
       return;
     }
 
-    const thisTransaction = transactionID;
+    if (!action.meta.transactionID) {
+      const thisTransaction = transactionID;
 
-    // Dispatch the pending action
-    dispatch({
-      type: action.type,
-      payload: action.payload,
-      meta: {
-        ...action.meta,
-        transactionID: thisTransaction,
-        status: 'pending'
-      }
-    });
-
-    // Dispatch success or failure when promise
-    // is resolved
-    action.meta.promise.then(
-      (result) => dispatch({
+      // Dispatch the pending action
+      dispatch({
         type: action.type,
-        payload: result,
+        payload: action.payload,
         meta: {
           ...action.meta,
           transactionID: thisTransaction,
-          status: 'success'
+          status: 'pending'
         }
-      }),
-      (error) => {
-        dispatch({
+      });
+
+      // Dispatch success or failure when promise
+      // is resolved
+      action.meta.promise.then(
+        (result) => dispatch({
           type: action.type,
-          payload: error,
-          error: true,
+          payload: result,
           meta: {
             ...action.meta,
             transactionID: thisTransaction,
-            status: 'error'
+            status: 'success'
           }
-        });
-        return Promise.reject(error);
-      }
-    );
-    transactionID++;
+        }),
+        (error) => {
+          dispatch({
+            type: action.type,
+            payload: error,
+            error: true,
+            meta: {
+              ...action.meta,
+              transactionID: thisTransaction,
+              status: 'error'
+            }
+          });
+          return Promise.reject(error);
+        }
+      );
+      transactionID++;
+    }
   };
 }
