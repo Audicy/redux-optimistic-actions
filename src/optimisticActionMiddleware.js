@@ -9,7 +9,7 @@ export default function optimisticActionMiddleware({ dispatch }) {
       return;
     }
 
-    if (!action.meta.transactionID) {
+    if (action.meta.transactionID === undefined) {
       const thisTransaction = transactionID;
 
       // Dispatch the pending action

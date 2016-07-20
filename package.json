@@ -1,6 +1,6 @@
 {
   "name": "redux-optimistic-actions",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Library for creating optimistic, transactional actions that can be reverted.",
   "main": "index.js",
   "scripts": {
