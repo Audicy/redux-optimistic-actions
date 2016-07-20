@@ -165,8 +165,12 @@ function revert(state, action, reduce) {
 }
 
 export default (reduce) => (inState, action) => {
-    // First time through, add optimistic
-    // state properties
+  if (!inState) {
+    return reduce(inState, action);
+  }
+
+  // First time through, add optimistic
+  // state properties
   let state = inState;
   if (!state.optimist) {
     state = initializeState(inState);
