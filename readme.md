@@ -56,7 +56,7 @@ window.action2revert = {
     payload: new Error('bad bad'),
     meta: {
         transactionID: 1,
-        status: 'failure',
+        status: 'error',
         optimistic: true
     }
 };

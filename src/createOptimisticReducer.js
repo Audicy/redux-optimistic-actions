@@ -182,7 +182,7 @@ export default (reduce) => (inState, action) => {
         return commit(state, action, reduce);
       case 'pending':
         return process(state, action, reduce);
-      case 'failure':
+      case 'error':
         return revert(state, action, reduce);
       default:
         return state;
