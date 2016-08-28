@@ -61,17 +61,21 @@ function processNonOptimisticAction(state, action, reduce) {
       ...innerState
   } = state;
 
+  const newInnerState = reduce(innerState, action);
+  let baseState = historyBaseState;
   const newHistory = [...history];
   if (newHistory.length > 0) {
     newHistory.push(action);
+  } else {
+    baseState = newInnerState;
   }
 
-  const newInnerState = reduce(innerState, action);
+
 
   return {
     optimist: {
       history: newHistory,
-      historyBaseState: { ...historyBaseState }
+      historyBaseState: { ...baseState }
     },
     ...newInnerState
   };
@@ -188,5 +192,6 @@ export default (reduce) => (inState, action) => {
         return state;
     }
   }
+
   return processNonOptimisticAction(state, action, reduce);
 };
